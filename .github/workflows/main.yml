@@ -44,8 +44,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: dry run step
+    - name: dry run server
       run: |
         pushd ./
         make k8s-yaml
-        popd    
+        popd
+
