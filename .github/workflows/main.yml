@@ -46,6 +46,6 @@ jobs:
 
     - name: dry run step
       run: |
-        push ./
+        pushd ./
         make k8s-yaml
         popd    
