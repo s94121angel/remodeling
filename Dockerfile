@@ -8,7 +8,7 @@ ENV MODEL_FILE_NN=clf_nn.joblib
 
 RUN pip install joblib
 
-COPY train.csv ./train.csv
+#COPY train.csv ./train.csv
 #COPY test.csv ./test.csv
 
 COPY train.py ./train.py
