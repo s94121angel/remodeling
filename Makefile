@@ -12,21 +12,16 @@ build-image:
 push-image: build-image
 	docker push ${REPO_NAME}:${VERSION}
 	docker push ${REPO_NAME}:latest
-	
-yaml-lint:
-	@echo "---------yamllint----------"
-	yamlint yamls/
-	yamlint kustomize/
 
 docker-lint:
 	@echo "---------docker lint----------"
-	docker run --rm -i -v ${PWD}/.hadolint.yaml:/.config/hadolint.yaml hadolint/hadolint < Dockerfile;
+	docker run --rm -i hadolint/hadolint < Dockerfile;
 
 shellcheck:
 	@echo "---------shell check----------"
-	shellcheck entrypoint.sh
+	shellcheck run.sh
 
-test: shellcheck docker-lint yaml-lint
+test: shellcheck docker-lint 
 
 native:
 	@echo "---------kubectl yaml check -----------"

@@ -1,19 +1,17 @@
-FROM jupyter/scipy-notebook
+FROM jupyter/scipy-notebook:2022-06-02
 
-RUN mkdir my-model
+RUN mkdir my-model train-code script
 ENV MODEL_DIR=/home/jovyan/my-model
 ENV MODEL_FILE_LDA=clf_lda.joblib
 ENV MODEL_FILE_NN=clf_nn.joblib
 
 
-RUN pip install joblib
+RUN pip install --no-cache-dir joblib==1.1.0
 
-#COPY train.csv ./train.csv
-#COPY test.csv ./test.csv
+COPY train.py /home/jovyan/train-code/train.py
 
-COPY train.py ./train.py
-#COPY inference.py ./inference.py
 
-#從本地資料夾內copy run.sh檔案
-COPY run.sh ./
-ENTRYPOINT ["/bin/bash", "./run.sh"]
+
+COPY run.sh /home/jovyan/script/run.sh
+ENTRYPOINT ["/bin/bash", "/home/jovyan/script/run.sh"]
+
