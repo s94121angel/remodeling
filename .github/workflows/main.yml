@@ -19,9 +19,11 @@ jobs:
 
     - name: Run shell check
       run: |
+        pushd ./      
         make shellcheck
         popd
     - name: Run Docker check
       run: |
+        pushd ./      
         make docker-lint
         popd
