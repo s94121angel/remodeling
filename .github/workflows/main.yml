@@ -38,15 +38,9 @@ jobs:
         pushd ./
         make build-image
         popd
-  dry-run:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: dry run server
+    - name: push docker-image
       run: |
         pushd ./
-        make k8s-yaml
+        make push-image
         popd
 
