@@ -27,7 +27,8 @@ def count_number():
 
 
 def train():
-
+    with open('./my-model/log.txt', 'a') as the_file:
+    	the_file.write('正在訓練中\n')
     # Load directory paths for persisting model
 
     MODEL_DIR = os.environ["MODEL_DIR"]
@@ -72,6 +73,8 @@ def train():
     NAME_with_count=str(count_of_file)+"_"+MODEL_FILE_NN
     SAVE_AT_LOCAL_NN =os.path.join(MODEL_DIR,  NAME_with_count)
     dump(clf_NN, SAVE_AT_LOCAL_NN)
+    with open('./my-model/log.txt', 'a') as the_file:
+    	the_file.write('已完成訓練\n')
     print("Remodeling Succeed")
         
 if __name__ == '__main__':
