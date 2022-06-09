@@ -1,7 +1,11 @@
 .PHONY: build-image push-image helm kustomize native
 
+SERVER  =
+COMMIT  =${shell git rev-parse --short HEAD}
+LOG     ="${shell git log -1 --pretty=%B}"
+VERSION ?=${COMMIT}
+TYPE    ?=minikube
 REPO_NAME=s410071012/remodeling_platform
-VERSION=1.0
 
 
 build-image:
