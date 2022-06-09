@@ -27,6 +27,11 @@ jobs:
         pushd ./      
         make docker-lint
         popd
+    - name: helm and kustomize
+      run: |
+        pushd ./
+        make helm
+        popd    
   build:
     runs-on: ubuntu-latest
     needs: docker-test

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: remodeling-deployment
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: remodelingApp 
@@ -16,14 +16,13 @@ spec:
         - name: remodeling-container
           image: s410071012/remodeling_platform
           command: ["/bin/sh"]
-          args: ["-c","while true; do python3 train.py;sleep 10;done"]
+          args: ["-c", "while true; do python3 /home/jovyan/train-code/train.py;sleep 10;done"]
           volumeMounts:
           - mountPath: /home/jovyan/my-model
             name: test-volume
           ports:
             - containerPort: 3500
-          imagePullPolicy: Always
-          
+          imagePullPolicy: Always        
       volumes:
       - name: test-volume
         hostPath:

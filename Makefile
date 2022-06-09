@@ -2,7 +2,6 @@
 
 SERVER  =
 COMMIT  =${shell git rev-parse --short HEAD}
-LOG     ="${shell git log -1 --pretty=%B}"
 VERSION ?=${COMMIT}
 TYPE    ?=minikube
 REPO_NAME=s410071012/remodeling_platform
@@ -33,8 +32,7 @@ native:
 
 helm:
 	@echo "---------helm yaml check -----------"
-	helm install --dry-run --debug test helm
-	helm template helm | kubectl apply --dry-run=server -f -
+	helm install --dry-run --debug test charthome
 
 kustomize:
 	@echo "---------kustomize yaml check -----------"

@@ -1,61 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "charthome.fullname" . }}
-  labels:
-    {{- include "charthome.labels" . | nindent 4 }}
+  name: {{.Chart.Name }}-deployment
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      {{- include "charthome.selectorLabels" . | nindent 6 }}
+      app: remodelingApp
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "charthome.selectorLabels" . | nindent 8 }}
+        app: remodelingApp
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "charthome.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: remodeling-container
+        image: s410071012/remodeling_platform:{{ .Values.deployment.image.tag }}
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do python3 /home/jovyan/train-code/train.py;sleep 10;done"]
+        ports:
+        - containerPort: 3500
+        imagePullPolicy: {{ .Values.deployment.pullPolicy }}
+        volumeMounts:
+        - name: test-volume
+          mountPath: /home/jovyan/my-model
+      volumes:
+      - name: test-volume
+        hostPath:
+          path: /downloads
+          type: Directory

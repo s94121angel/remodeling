@@ -1,4 +1,3 @@
 resources:
-  - debug.yaml
   - service.yaml
   - deployment.yaml
