@@ -16,7 +16,7 @@ spec:
       - name: remodeling-container
         image: s410071012/remodeling_platform:{{ .Values.deployment.image.tag }}
         command: ["/bin/sh"]
-        args: ["-c", "while true; do python3 /home/jovyan/train-code/train.py;sleep 100;done"]
+        args: ["-c", "while true; do python3 /home/jovyan/train-code/train.py;sleep 200;done"]
         ports:
         - containerPort: 3500
         imagePullPolicy: {{ .Values.deployment.pullPolicy }}
