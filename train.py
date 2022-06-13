@@ -2,7 +2,7 @@
 # tain.py
 # Xavier Vasques 13/04/2021
 
-import platform; print(platform.platform())
+import platform; 
 import sys; 
 import numpy; 
 import scipy; 
@@ -14,6 +14,12 @@ from sklearn.neural_network import MLPClassifier
 import pandas as pd
 from joblib import dump
 from sklearn import preprocessing
+
+from datetime import datetime
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print("Current Time =", current_time)
+
 
 initial_count=0  
 
