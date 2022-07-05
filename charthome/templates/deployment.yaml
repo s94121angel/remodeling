@@ -12,6 +12,9 @@ spec:
       labels:
         app: remodelingApp
     spec:
+      syncPolicy:
+        syncOptions:
+        - Replace=true
       containers:
       - name: remodeling-container
         image: s410071012/remodeling_platform:{{ .Values.deployment.image.tag }}
