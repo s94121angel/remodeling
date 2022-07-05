@@ -79,7 +79,7 @@ def train():
     count_of_file=count_number()
     NAME_with_count=str(count_of_file)+"_"+MODEL_FILE_NN
     SAVE_AT_LOCAL_NN =os.path.join(MODEL_DIR,  NAME_with_count)
-    time.sleep(30)#######只是單純讓網頁顯示修模中久一點
+    time.sleep(40)#######只是單純讓網頁顯示修模中久一點
     dump(clf_NN, SAVE_AT_LOCAL_NN)
     with open('./my-model/log.txt', 'a') as the_file:
     	the_file.write('0\n')
