@@ -6,7 +6,7 @@ ENV MODEL_FILE_LDA=clf_lda.joblib
 ENV MODEL_FILE_NN=clf_nn.joblib
 
 
-RUN pip install --no-cache-dir joblib==1.1.0
+RUN pip install @--no-cache-dir joblib==1.1.0
 
 COPY train.py /home/jovyan/train-code/train.py
 EXPOSE 8080
